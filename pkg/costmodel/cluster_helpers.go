@@ -445,7 +445,7 @@ func buildPreemptibleMap(
 // it does not exist. Intended to be called ONLY by buildNodeMap
 func checkForKeyAndInitIfMissing(
 	nodeMap map[NodeIdentifier]*Node,
-	key nodeIdentifier,
+	key NodeIdentifier,
 	clusterAndNameToType map[nodeIdentifierNoProviderID]string,
 ) {
 	if _, ok := nodeMap[key]; !ok {
