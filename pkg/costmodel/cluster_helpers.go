@@ -1,17 +1,11 @@
 package costmodel
 
 import (
-	"fmt"
 	"time"
 
-	"github.com/kubecost/cost-model/pkg/cloud"
 	"github.com/kubecost/cost-model/pkg/env"
 	"github.com/kubecost/cost-model/pkg/log"
 	"github.com/kubecost/cost-model/pkg/prom"
-	"github.com/kubecost/cost-model/pkg/util"
-
-	prometheus "github.com/prometheus/client_golang/api"
-	"k8s.io/klog"
 )
 
 // mergeTypeMaps takes two maps of (cluster name, node name) -> node type
@@ -55,7 +49,7 @@ func buildCPUCostMap(
 
 		cpuCost := result.Values[0].Value
 
-		key := nodeIdentifier{
+		key := NodeIdentifier{
 			Cluster:    cluster,
 			Name:       name,
 			ProviderID: providerIDParser(providerID),
@@ -98,7 +92,7 @@ func buildRAMCostMap(
 
 		ramCost := result.Values[0].Value
 
-		key := nodeIdentifier{
+		key := NodeIdentifier{
 			Cluster:    cluster,
 			Name:       name,
 			ProviderID: providerIDParser(providerID),
@@ -139,7 +133,7 @@ func buildGPUCostMap(
 
 		gpuCost := result.Values[0].Value
 
-		key := nodeIdentifier{
+		key := NodeIdentifier{
 			Cluster:    cluster,
 			Name:       name,
 			ProviderID: providerIDParser(providerID),
@@ -379,7 +373,7 @@ func buildActiveDataMap(resActiveMins []*prom.QueryResult, resolution time.Durat
 
 		providerID, _ := result.GetString("provider_id")
 
-		key := nodeIdentifier{
+		key := NodeIdentifier{
 			Cluster:    cluster,
 			Name:       name,
 			ProviderID: providerIDParser(providerID),
@@ -427,7 +421,7 @@ func buildPreemptibleMap(
 
 		providerID, _ := result.GetString("provider_id")
 
-		key := nodeIdentifier{
+		key := NodeIdentifier{
 			Cluster:    cluster,
 			Name:       nodeName,
 			ProviderID: providerIDParser(providerID),
